@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VetApp.Pages.AddPetPage"
+             Title="Adicionar Pet"
+             Background="#C6EDF5">
+
+    <StackLayout>
+        <Frame Padding="10" HasShadow="True" Margin="10,5" Background="White" CornerRadius="10" BorderColor="LightGray">
+            <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+
+                <Entry x:Name="EntryNomePet" Placeholder="Nome do Pet" IsPassword="False" PlaceholderColor="Gray" Grid.Row="0" Margin="5" TextColor="Black" ClearButtonVisibility="WhileEditing"/>
+                <Entry x:Name="EntryMicrochip" Placeholder="Microchip" Grid.Row="1" IsPassword="False" PlaceholderColor="Gray" Margin="5" TextColor="Black" ClearButtonVisibility="WhileEditing"/>
+                <Picker x:Name="especiePicker" Grid.Row="2" Title="Selecione a Espécie" TextColor="Black" TitleColor="Gray" Margin="5">
+                    <Picker.Items>
+                    </Picker.Items>
+                </Picker>
+                <Button Text="+" WidthRequest="40" BackgroundColor="LightGray" HeightRequest="35" Padding="2" Clicked="OnAddEspecieClicked" Grid.Row="2" Grid.Column="1"/>
+                
+                <Picker x:Name="racaPicker" Grid.Row="3" Title="Selecione a Raça" TextColor="Black" TitleColor="Gray" Margin="5">
+                    <Picker.Items>
+                    </Picker.Items>
+                </Picker>
+                <Button Text="+" WidthRequest="40" BackgroundColor="LightGray" HeightRequest="35" Padding="2" Clicked="OnAddRacaClicked" Grid.Row="3" Grid.Column="1"/>
+                
+                <Entry x:Name="EntryIdadePet" Placeholder="Idade do Pet" Keyboard="Numeric" Grid.Row="4" IsPassword="False" PlaceholderColor="Gray" Margin="5" TextColor="Black" ClearButtonVisibility="WhileEditing"/>
+                <Entry x:Name="entryPeso" Placeholder="Peso" Keyboard="Numeric" IsPassword="False" PlaceholderColor="Gray" Grid.Row="5" Margin="5" TextColor="Black" ClearButtonVisibility="WhileEditing"/>
+                <Picker x:Name="sexagemPicker" Grid.Row="6" Title="Selecione o Sexo" TextColor="Black" TitleColor="Gray" Margin="10">
+                    <Picker.Items>
+                        <x:String>MACHO</x:String>
+                        <x:String>FEMÊA</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Grid>
+        </Frame>
+        <Button Text="Cadastrar" 
+                Padding="20" 
+                FontSize="18" 
+                Grid.Row="1" 
+                Margin="20" 
+                CornerRadius="20" 
+                BackgroundColor="#51EABB"
+                Clicked="OnAddPetClicked"/>
+    </StackLayout>
+</ContentPage>
