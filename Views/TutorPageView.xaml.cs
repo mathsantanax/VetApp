@@ -1,20 +1,21 @@
-using VetApp.ModelView;
+using VetApp.Models.ModelPetETutor;
+using VetApp.ViewModel;
 
-namespace VetApp.Pages;
+namespace VetApp.Views;
 
-public partial class HomePage : ContentPage
+public partial class TutorPageView : ContentPage
 {
-	public HomePage()
+	public TutorPageView(Tutor tutor)
 	{
 		InitializeComponent();
-        BindingContext = new TutorModelView();
+		BindingContext = new TutorViewModel(tutor);
 	}
     async void OnItemTapped(object sender, EventArgs e)
     {
         var frame = (Frame)sender;
         var originalColor = Colors.White;
         frame.BackgroundColor = Color.FromArgb("#D3D3D3");
-        await Task.Delay(100);
+        await Task.Delay(200);
         frame.BackgroundColor = originalColor;
     }
 }

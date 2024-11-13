@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using VetApp.Models.ModelPetETutor;
-using VetApp.Pages;
 using VetApp.Repositorios;
-using VetApp.ViewModel;
+using VetApp.Views;
 
-namespace VetApp.ModelView
+namespace VetApp.ViewModel
 {
-    public class TutorModelView : BaseViewModel
+    public class HomePageViewModel : BaseViewModel
     {
         const int RefreshDuration = 2;
         private bool isRefreshing;
@@ -33,13 +33,13 @@ namespace VetApp.ModelView
         private readonly TutorRepositorio tutorRepositorio = new TutorRepositorio();
         public ObservableCollection<Tutor> Tutores { get; private set; }
         public ICommand RefreshCommand => new Command(async () => await RefreshItemsAsync());
-        public ICommand ItemSelectedCommand { get; }
+        public ICommand TutoresTapCommand { get; }
         public ICommand AddNewTutor { get; }
 
-        public TutorModelView()
+        public HomePageViewModel()
         {
             Tutores = new ObservableCollection<Tutor>();
-            ItemSelectedCommand = new Command<Tutor>(OnItemSelected);
+            TutoresTapCommand = new Command<Tutor>(OnItemSelected);
             AddNewTutor = new Command(AddTutor);
             _ = InitializeAsync();
         }
@@ -57,14 +57,14 @@ namespace VetApp.ModelView
             {
                 if (SetProperty(ref selectedTutor, value))
                 {
-                    ItemSelectedCommand.Execute(selectedTutor);
+                    TutoresTapCommand.Execute(selectedTutor);
                 }
             }
         }
 
         private async Task GetRegisterAsync()
         {
-            
+
             try
             {
                 Tutores.Clear();
@@ -99,7 +99,7 @@ namespace VetApp.ModelView
             {
                 if (selectedTutor != null)
                 {
-                    await Application.Current.MainPage.Navigation.PushAsync(new TutorPage(selectedTutor));
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new TutorPageView(selectedTutor));
                     SelectedTutor = null;
                 }
             }

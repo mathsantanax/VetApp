@@ -1,15 +1,14 @@
-using VetApp.Models.ModelPetETutor;
-using VetApp.ModelView;
+using VetApp.ViewModel;
 
-namespace VetApp.Pages;
+namespace VetApp.Views;
 
-public partial class TutorPage : ContentPage
+public partial class HomePageView : ContentPage
 {
-    public TutorPage(Tutor tutor)
-    {
-        InitializeComponent();
-        BindingContext = new PetsModelView(tutor);
-    }
+	public HomePageView()
+	{
+		InitializeComponent();
+		BindingContext = new HomePageViewModel();
+	}
     async void OnItemTapped(object sender, EventArgs e)
     {
         var frame = (Frame)sender;

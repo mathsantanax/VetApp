@@ -1,44 +1,59 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using VetApp.DTO;
 using VetApp.Models.ModelPetETutor;
 using VetApp.Pages;
 using VetApp.Repositorios;
-using VetApp.ViewModel;
 
-namespace VetApp.ModelView
+namespace VetApp.ViewModel
 {
-    public class PetsModelView : BaseViewModel
+    public class TutorViewModel : BaseViewModel
     {
         private readonly PetRepositorio petRepositorio = new PetRepositorio();
         private readonly RacaRepositorio racaRepositorio = new RacaRepositorio();
         private readonly EspecieRepositorio especieRepositorio = new EspecieRepositorio();
-        private Tutor tutor;
-        private Pet selectedPet;
 
-        public ObservableCollection<petDto> BindingPets { get; private set; }
-        public ObservableCollection<Tutor> BindingTutor { get; private set; }
-        public ICommand ItemSelectedCommand { get; }
-        public ICommand AddNewPet { get; }
-
-        public PetsModelView(Tutor tutor)
+        private Tutor _Tutor { get; set; }
+        public Tutor Tutor
         {
-            BindingPets = new ObservableCollection<petDto>();
-            BindingTutor = new ObservableCollection<Tutor>();
-            setTutor(tutor);
-            ItemSelectedCommand = new Command<petDto>(OnItemSelected);
-            AddNewPet = new Command<Tutor>(OnAddPetClicked);
+            get => _Tutor;
         }
 
-        private async void setTutor(Tutor tutor)
+        private ObservableCollection<petDto> _Pets = [];
+        public ObservableCollection<petDto> Pets
         {
-            this.tutor = tutor;
-            BindingTutor.Clear();
-            BindingTutor.Add(tutor);
+            get => _Pets;
+            set => SetProperty(ref _Pets, value);
+        }
+
+        private bool _IsLoaded = false;
+        public bool IsLoaded
+        {
+            get => _IsLoaded;
+            set => SetProperty(ref _IsLoaded, value);
+        }
+
+        public ICommand BackCommand { get; }
+        public ICommand PetTapCommand { get; }
+        public ICommand AddNewPet { get; }
+
+        public TutorViewModel(Tutor tutor)
+        {
+            _Tutor = tutor;
+            Pets = new ObservableCollection<petDto>();
+            PetTapCommand = new Command<petDto>(OnItemSelected);
+            AddNewPet = new Command<Tutor>(OnAddPetClicked);
+            BackCommand = new Command<object>(GoBack);
+            _ = InitializeAsync();
+        }
+        private async Task InitializeAsync()
+        {
             await LoadPetsAsync();
         }
 
@@ -46,15 +61,16 @@ namespace VetApp.ModelView
         {
             try
             {
-                BindingPets.Clear();
-                var pets = await petRepositorio.GetPet(tutor.Id);
+                Pets.Clear();
+                await Task.Delay(500);
+                var pets = await petRepositorio.GetPet(Tutor.Id);
                 if (pets != null && pets.Any())
                 {
                     foreach (var pet in pets)
                     {
                         var raca = await racaRepositorio.GetRacaById(pet.IdRaca);
                         var especie = await especieRepositorio.GetEspecieById(pet.IdEspecie);
-                        BindingPets.Add(new petDto
+                        Pets.Add(new petDto
                         {
                             Id = pet.Id,
                             NomePet = pet.NomePet,
@@ -72,13 +88,17 @@ namespace VetApp.ModelView
             {
                 Debug.WriteLine($"Erro ao obter registros: {ex.Message}");
             }
+            finally
+            {
+                IsLoaded = true;
+            }
         }
 
         private async void OnItemSelected(petDto selectedPet)
         {
             //if (selectedPet == null)
             //    return;
-                await Application.Current.MainPage.Navigation.PushAsync(new PetPage(selectedPet));
+            await Application.Current.MainPage.Navigation.PushAsync(new PetPage(selectedPet));
             try
             {
                 await Application.Current.MainPage.DisplayAlert("HI", $"Erro ao selecionar pet: {selectedPet.NomePet}", "Ok");
@@ -89,7 +109,6 @@ namespace VetApp.ModelView
                 Debug.WriteLine($"Erro ao selecionar pet: {ex.Message}");
             }
         }
-
         private async void OnAddPetClicked(Tutor tutor)
         {
             if (tutor == null)
@@ -107,5 +126,10 @@ namespace VetApp.ModelView
                 Debug.WriteLine($"Erro ao adicionar pet: {ex.Message}");
             }
         }
+        private async void GoBack(object obj)
+        {
+            await Application.Current.MainPage.Navigation.PopModalAsync();
+        }
+
     }
 }

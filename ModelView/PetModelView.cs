@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VetApp.DTO;
 using VetApp.Models.ModelPetETutor;
+using VetApp.ViewModel;
 
 namespace VetApp.ModelView
 {
