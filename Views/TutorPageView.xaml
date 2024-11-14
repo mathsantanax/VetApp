@@ -12,109 +12,117 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid RowDefinitions="Auto ,*, Auto">
-        <ScrollView>
-            <Grid IsVisible="{Binding IsLoaded}" Margin="0,30,0,0" Grid.Row="0">
-                <StackLayout IsClippedToBounds="True" Grid.Row="0">
-                    <Frame Padding="0,2"  HasShadow="True" Margin="15" Background="White" CornerRadius="10" BorderColor="LightGray">
-                        <Grid RowDefinitions="*, Auto">
-                            <Image
+        <Grid IsVisible="{Binding IsLoaded}" Margin="0,30,0,0" Grid.Row="0">
+            <StackLayout IsClippedToBounds="True" Grid.Row="0">
+                <Frame Padding="0,2"  HasShadow="True" Margin="15" Background="White" CornerRadius="10" BorderColor="LightGray">
+                    <Grid RowDefinitions="*, Auto">
+                        <Image
                          Margin="8,12"
                          Aspect="Fill"
                          HeightRequest="70"
                          WidthRequest="70"
                          Source="profile.png"/>
-                            <StackLayout Margin="16" Grid.Row="1">
-                                <Label FontAttributes="Bold"
+                        <StackLayout Margin="16" Grid.Row="1">
+                            <Label FontAttributes="Bold"
                                         FontSize="18"
                                         HorizontalOptions="CenterAndExpand"
                                         Text="{Binding Tutor.NomeTutor}"
                                         TextColor="Black"
                                         VerticalTextAlignment="Center"
                                        Margin="0"/>
-                                <Label FontAttributes="Bold"
+                            <Label FontAttributes="Bold"
                                         FontSize="18"
                                         HorizontalOptions="CenterAndExpand"
                                         Text="{Binding Tutor.Celular, StringFormat='{0:(##) #####-####}'}"
                                         TextColor="Black"
                                        Margin="5"
                                         VerticalTextAlignment="Center"/>
-                            </StackLayout>
-                        </Grid>
-                    </Frame>
-                    <StackLayout Grid.Row="1" IsVisible="{Binding IsLoaded}">
-                        <Label Text="Pets"
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+                <StackLayout Grid.Row="1" IsVisible="{Binding IsLoaded}">
+                    <Label Text="Pets"
                                     FontAttributes="Bold"
                                     FontSize="22"
                                     HorizontalOptions="CenterAndExpand"/>
 
-                        <CollectionView
-                                         ItemsSource="{Binding Pets}">
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout ItemSpacing="12" Orientation="Vertical"/>
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Frame  Padding="10" HasShadow="True" Margin="10,5" CornerRadius="10" BackgroundColor="White" BorderColor="LightGray">
+                    <CollectionView ItemsSource="{Binding Pets}" HeightRequest="520">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="12" Orientation="Vertical"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame  Padding="10" HasShadow="True" Margin="10,5" CornerRadius="10" BackgroundColor="White" BorderColor="LightGray">
 
-                                        <Grid ColumnDefinitions="Auto, Auto, Auto" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+                                    <Grid ColumnDefinitions="Auto, Auto, Auto" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
 
-                                            <Image HeightRequest="80" WidthRequest="80" Grid.RowSpan="6" Margin="0,0,10,0"
+                                        <Image HeightRequest="80" WidthRequest="80" Grid.RowSpan="6" Margin="0,0,10,0"
                                             VerticalOptions="CenterAndExpand" Aspect="AspectFill">
-                                                <Image.Triggers>
-                                                    <DataTrigger TargetType="Image" Binding="{Binding Especie}" Value="CACHORRO">
-                                                        <Setter Property="Source" Value="cachorro.png" />
-                                                    </DataTrigger>
-                                                    <DataTrigger TargetType="Image" Binding="{Binding Especie}" Value="GATO">
-                                                        <Setter Property="Source" Value="gato.png" />
-                                                    </DataTrigger>
-                                                </Image.Triggers>
-                                            </Image>
+                                            <Image.Triggers>
+                                                <DataTrigger TargetType="Image" Binding="{Binding Especie}" Value="CACHORRO">
+                                                    <Setter Property="Source" Value="cachorro.png" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Image" Binding="{Binding Especie}" Value="GATO">
+                                                    <Setter Property="Source" Value="gato.png" />
+                                                </DataTrigger>
+                                            </Image.Triggers>
+                                        </Image>
 
-                                            <Grid ColumnDefinitions="Auto,Auto" Grid.Column="1">
-                                                <Label Text="Pet: " FontSize="20" FontAttributes="Bold" TextColor="Orange" Grid.Column="0" Grid.Row="0"/>
-                                                <Label Text="{Binding NomePet}" FontSize="20" FontAttributes="Bold" TextColor="Orange" Grid.Column="1" Grid.Row="0"/>
-                                            </Grid>
-
-                                            <Grid ColumnDefinitions="Auto,Auto" Grid.Column="1" Grid.Row="1">
-                                                <Label Text="Raça: " FontSize="16" FontAttributes="Bold" TextColor="Gray" Grid.Column="0" Grid.Row="0"/>
-                                                <Label Text= "{Binding Raca}" FontSize="16" TextColor="Gray" Grid.Column="1" Grid.Row="1" VerticalOptions="Start"/>
-                                            </Grid>
-
-                                            <Grid ColumnDefinitions="Auto,Auto" Grid.Column="1" Grid.Row="3">
-                                                <Label Text="Microchip: " FontSize="16" FontAttributes="Bold" TextColor="Gray" Grid.Column="0" Grid.Row="0"/>
-                                                <Label Text= "{Binding NumeroMicrochip}" FontSize="16" TextColor="Gray" Grid.Column="1" Grid.Row="1" VerticalOptions="Start"/>
-                                            </Grid>
-
-                                            <Grid ColumnDefinitions="Auto,Auto" Grid.Column="1" Grid.Row="4">
-                                                <Label Text="Peso: " FontSize="16" FontAttributes="Bold" TextColor="Gray" Grid.Column="0" Grid.Row="0"/>
-                                                <Label Text="{Binding Peso}" FontSize="16" TextColor="Gray" Grid.Column="1" Grid.Row="4" />
-                                            </Grid>
-
-                                            <Grid ColumnDefinitions="Auto,Auto" Grid.Column="1" Grid.Row="5">
-                                                <Label Text="Idade: " FontSize="16" FontAttributes="Bold" TextColor="Gray" Grid.Column="0" Grid.Row="0"/>
-                                                <Label Text="{Binding Idade}" FontSize="16" TextColor="Gray" Grid.Column="1" Grid.Row="4" />
-                                            </Grid>
-
-                                            <Grid ColumnDefinitions="Auto,Auto" Grid.Column="1" Grid.Row="6">
-                                                <Label Text="Sexo: " FontSize="16" FontAttributes="Bold" TextColor="Gray" Grid.Column="0" Grid.Row="0"/>
-                                                <Label Text="{Binding Sexo}" FontSize="16" TextColor="Gray" Grid.Column="1" Grid.Row="4" />
-                                            </Grid>
-
+                                        <Grid ColumnDefinitions="Auto,Auto" Grid.Column="1">
+                                            <Label Text="Pet: " FontSize="20" FontAttributes="Bold" TextColor="Orange" Grid.Column="0" Grid.Row="0"/>
+                                            <Label Text="{Binding NomePet}" FontSize="20" FontAttributes="Bold" TextColor="Orange" Grid.Column="1" Grid.Row="0"/>
                                         </Grid>
 
-                                        <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.PetTapCommand}" 
-                                                             CommandParameter="{Binding .}" Tapped="OnItemTapped"/>
-                                        </Frame.GestureRecognizers>
-                                    </Frame>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </StackLayout>
-                </StackLayout>
+                                        <Grid ColumnDefinitions="Auto,Auto" Grid.Column="1" Grid.Row="1">
+                                            <Label Text="Raça: " FontSize="16" FontAttributes="Bold" TextColor="Gray" Grid.Column="0" Grid.Row="0"/>
+                                            <Label Text= "{Binding Raca}" FontSize="16" TextColor="Gray" Grid.Column="1" Grid.Row="1" VerticalOptions="Start"/>
+                                        </Grid>
 
-            </Grid>
-        </ScrollView>
+                                        <Grid ColumnDefinitions="Auto,Auto" Grid.Column="1" Grid.Row="3">
+                                            <Label Text="Microchip: " FontSize="16" FontAttributes="Bold" TextColor="Gray" Grid.Column="0" Grid.Row="0"/>
+                                            <Label Text= "{Binding NumeroMicrochip}" FontSize="16" TextColor="Gray" Grid.Column="1" Grid.Row="1" VerticalOptions="Start"/>
+                                        </Grid>
+
+                                        <Grid ColumnDefinitions="Auto,Auto" Grid.Column="1" Grid.Row="4">
+                                            <Label Text="Peso: " FontSize="16" FontAttributes="Bold" TextColor="Gray" Grid.Column="0" Grid.Row="0"/>
+                                            <Label Text="{Binding Peso}" FontSize="16" TextColor="Gray" Grid.Column="1" Grid.Row="4" />
+                                        </Grid>
+
+                                        <Grid ColumnDefinitions="Auto,Auto" Grid.Column="1" Grid.Row="5">
+                                            <Label Text="Idade: " FontSize="16" FontAttributes="Bold" TextColor="Gray" Grid.Column="0" Grid.Row="0"/>
+                                            <Label Text="{Binding Idade}" FontSize="16" TextColor="Gray" Grid.Column="1" Grid.Row="4" />
+                                        </Grid>
+
+                                        <Grid ColumnDefinitions="Auto,Auto" Grid.Column="1" Grid.Row="6">
+                                            <Label Text="Sexo: " FontSize="16" FontAttributes="Bold" TextColor="Gray" Grid.Column="0" Grid.Row="0"/>
+                                            <Label Text="{Binding Sexo}" FontSize="16" TextColor="Gray" Grid.Column="1" Grid.Row="4" />
+                                        </Grid>
+
+                                    </Grid>
+
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.PetTapCommand}" 
+                                                             CommandParameter="{Binding .}" Tapped="OnItemTapped"/>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </StackLayout>
+                <Button
+                    FontAttributes="Bold"
+                    BackgroundColor="LightBlue"
+                    CornerRadius="50"
+                    HeightRequest="60"
+                    WidthRequest="60"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    ImageSource="plus.png"
+                    Padding="20"
+                    Margin="0,0,20,50"
+                    Command="{Binding AddNewPet}"/>
+        </Grid>
 
         <StackLayout
              Margin="1"

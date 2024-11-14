@@ -10,6 +10,7 @@ using VetApp.DTO;
 using VetApp.Models.ModelPetETutor;
 using VetApp.Pages;
 using VetApp.Repositorios;
+using VetApp.Views;
 
 namespace VetApp.ViewModel
 {
@@ -46,9 +47,9 @@ namespace VetApp.ViewModel
         public TutorViewModel(Tutor tutor)
         {
             _Tutor = tutor;
+            AddNewPet =new Command(OnAddPetClicked);
             Pets = new ObservableCollection<petDto>();
             PetTapCommand = new Command<petDto>(OnItemSelected);
-            AddNewPet = new Command<Tutor>(OnAddPetClicked);
             BackCommand = new Command<object>(GoBack);
             _ = InitializeAsync();
         }
@@ -96,30 +97,20 @@ namespace VetApp.ViewModel
 
         private async void OnItemSelected(petDto selectedPet)
         {
-            //if (selectedPet == null)
-            //    return;
-            await Application.Current.MainPage.Navigation.PushAsync(new PetPage(selectedPet));
             try
             {
-                await Application.Current.MainPage.DisplayAlert("HI", $"Erro ao selecionar pet: {selectedPet.NomePet}", "Ok");
-                //await Application.Current.MainPage.Navigation.PopAsync();
+                await Application.Current.MainPage.Navigation.PushAsync(new PetPage(selectedPet));
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Erro ao selecionar pet: {ex.Message}");
             }
         }
-        private async void OnAddPetClicked(Tutor tutor)
+        private async void OnAddPetClicked()
         {
-            if (tutor == null)
-            {
-                Debug.WriteLine("Tutor é nulo no comando OnAddPetClicked");
-                return;
-            }
-
             try
             {
-                await Application.Current.MainPage.Navigation.PushAsync(new AddPetPage(tutor));
+                await Application.Current.MainPage.Navigation.PushModalAsync(new AddNewPetPageView(_Tutor));
             }
             catch (Exception ex)
             {
