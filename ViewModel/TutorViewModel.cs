@@ -99,7 +99,7 @@ namespace VetApp.ViewModel
         {
             try
             {
-                await Application.Current.MainPage.Navigation.PushAsync(new PetPage(selectedPet));
+                await Application.Current.MainPage.Navigation.PushModalAsync(new PetPageView(selectedPet));
             }
             catch (Exception ex)
             {
