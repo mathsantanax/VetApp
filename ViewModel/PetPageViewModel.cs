@@ -13,6 +13,7 @@ namespace VetApp.ViewModel
     public class PetPageViewModel : BaseViewModel
     {
         public petDto Pet { get; set; }
+        public ObservableCollection<ServiceDto> serviceDtos { get; set; }
 
         private bool _IsLoaded = false;
         public bool IsLoaded
@@ -33,6 +34,11 @@ namespace VetApp.ViewModel
         private async Task InitializeAsync()
         {
             IsLoaded = true;
+        }
+
+        private async Task GetServices()
+        {
+
         }
 
         private async void GoBack(object obj)

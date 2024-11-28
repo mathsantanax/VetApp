@@ -8,17 +8,21 @@ using System.Threading.Tasks;
 
 namespace VetApp.Models.ModelServicos
 {
-    public record class Vacinacao
+    public record Atendimento
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        public DateTime DataProxima { get; set; }
+        public DateTime Data { get; set; }
+        public decimal ValorTotal { get; set; }
 
+        [ForeignKey(nameof(IdTutor))]
+        public int IdTutor { get; set; }
+        
         [ForeignKey(nameof(IdPet))]
-        public int IdPet { get; set; }
-
-        [ForeignKey(nameof(IdAtendimento))]
-        public int IdAtendimento { get; set; }
+        public int IdPet { get; set; } 
+        
+        [ForeignKey(nameof(IdPagamento))]
+        public int IdPagamento { get; set; }
     }
 }

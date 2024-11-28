@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using VetApp.DTO;
 using VetApp.Models.ModelPetETutor;
-using VetApp.Pages;
 using VetApp.Repositorios;
 using VetApp.Views;
+using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace VetApp.ViewModel
 {
-    public class TutorViewModel : BaseViewModel
+    public class TutorViewModel : ObservableObject
     {
         private readonly PetRepositorio petRepositorio = new PetRepositorio();
         private readonly RacaRepositorio racaRepositorio = new RacaRepositorio();

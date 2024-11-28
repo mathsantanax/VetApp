@@ -22,33 +22,36 @@ namespace VetApp.Service
             {
                 // apagar a base de dados
 
-                 //_database.DropTableAsync<Raca>().Wait();
-                 //_database.DropTableAsync<Tutor>().Wait();
-                 //_database.DropTableAsync<Pet>().Wait();
-                 //_database.DropTableAsync<Especie>().Wait();
+                //_database.DropTableAsync<Raca>().Wait();
+                //_database.DropTableAsync<Tutor>().Wait();
+                //_database.DropTableAsync<Pet>().Wait();
+                //_database.DropTableAsync<Especie>().Wait();
 
-                 //_database.DropTableAsync<Servico>().Wait();
-                 //_database.DropTableAsync<Produto>();
-                 //_database.DropTableAsync<TipoServico>().Wait();
-                 //_database.DropTableAsync<Pagamento>().Wait();
-                 //_database.DropTableAsync<Lab>().Wait();
-                 //_database.DropTableAsync<Vacinacao>().Wait();
-                 //_database.DropTableAsync<Valor>().Wait();
+                //_database.DropTableAsync<Servico>().Wait();
+                //_database.DropTableAsync<Produto>();
+                //_database.DropTableAsync<Pagamento>().Wait();
+                //_database.DropTableAsync<Lab>().Wait();
+                //_database.DropTableAsync<Vacinacao>().Wait();
+                //_database.DropTableAsync<Atendimento>().Wait();
+                //_database.DropTableAsync<ItemAtendimento>().Wait();
+                //_database.DropTableAsync<ItemServico>().Wait();
 
                 // base de dados para entities Pet e tutor
-                 _database.CreateTableAsync<Raca>().Wait();
+                _database.CreateTableAsync<Raca>().Wait();
                  _database.CreateTableAsync<Tutor>().Wait();
                  _database.CreateTableAsync<Pet>().Wait();
                  _database.CreateTableAsync<Especie>().Wait();
 
-                 // base de dados para entities Servicos
+                // base de dados para entities Servicos
+                _database.CreateTableAsync<Atendimento>().Wait();
+                _database.CreateTableAsync<ItemAtendimento>().Wait();
+                _database.CreateTableAsync<ItemServico>().Wait();
                  _database.CreateTableAsync<Servico>().Wait();
                  _database.CreateTableAsync<Produto>().Wait();
-                 _database.CreateTableAsync<TipoServico>().Wait();
                  _database.CreateTableAsync<Pagamento>().Wait();
                  _database.CreateTableAsync<Lab>().Wait();
                  _database.CreateTableAsync<Vacinacao>().Wait();
-                 _database.CreateTableAsync<Valor>().Wait();
+
             }
             catch (SQLiteException sqlException)
             {
@@ -63,6 +66,8 @@ namespace VetApp.Service
                 _database.CloseAsync();
             }
         }
+
+        #region Tutor
 
         // Listar todos os tutores
         public async Task<List<Tutor>> ListarTutor()
@@ -86,6 +91,8 @@ namespace VetApp.Service
         {
             return await _database.Table<Pet>().Where(pet => pet.IdTutor == tutor).ToListAsync();
         }
+
+        #endregion
 
         // Adicionar pet
         public async void AddPet(Pet pet)

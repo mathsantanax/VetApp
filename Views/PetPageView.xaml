@@ -23,8 +23,8 @@
                                 Margin="10"
                              HeightRequest="50"
                              WidthRequest="50"
-                             ImageSource="bin.png"
-                             BackgroundColor="LightPink"/>
+                             ImageSource="seringa.png"
+                             BackgroundColor="LightBlue"/>
 
                         <Image HeightRequest="80" WidthRequest="80" Grid.Row="0" Grid.Column="0" Margin="0,0,10,0"
             VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Aspect="AspectFill">
@@ -44,8 +44,8 @@
                         </Grid>
 
                         <Grid ColumnDefinitions="Auto,Auto" HorizontalOptions="Center"  VerticalOptions="End" Grid.Column="0" Grid.Row="2">
-                            <Label Text="Microchip: " FontSize="20" FontAttributes="Bold" TextColor="Orange" Grid.Column="0" Grid.Row="0"/>
-                            <Label Text="{Binding Pet.NumeroMicrochip}" FontSize="20" FontAttributes="Bold" TextColor="Orange" Grid.Column="1" Grid.Row="0"/>
+                            <Label Text="Microchip: " FontSize="16" FontAttributes="Bold" TextColor="Gray" Grid.Column="0" Grid.Row="0"/>
+                            <Label Text="{Binding Pet.NumeroMicrochip}" FontSize="16" FontAttributes="Bold" TextColor="Gray" Grid.Column="1" Grid.Row="0"/>
                         </Grid>
 
                         <Grid ColumnDefinitions="Auto,Auto, Auto, Auto" Padding="3" HorizontalOptions="Center" Grid.Column="0" Grid.Row="3">
@@ -70,7 +70,26 @@
 
                     </Grid>
                 </Frame>
+                <StackLayout Grid.Row="1" IsVisible="{Binding IsLoaded}">
+                    <Label Text="Serviços"
+                    FontAttributes="Bold"
+                    FontSize="22"
+                    HorizontalOptions="CenterAndExpand"/>
 
+                    <CollectionView>
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="12" Orientation="Vertical"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame  Padding="10" HasShadow="True" Margin="10,5" CornerRadius="10" BackgroundColor="White" BorderColor="LightGray">
+                                    <Label Text="I ghosted to the down cool"/>
+                                </Frame>
+                        </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+                </StackLayout>
             </StackLayout>
         </Grid>
 

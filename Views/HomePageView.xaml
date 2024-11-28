@@ -42,7 +42,8 @@
                     Margin="8,0"
                     FontSize="12"
                     HorizontalOptions="FillAndExpand"
-                    Placeholder="Search Here" />
+                    Placeholder="Search Here" 
+                        Text="{Binding SearchQuery}"/>
                 </StackLayout>
             </Border>
         </StackLayout>
@@ -65,7 +66,7 @@
                             />
                             <CollectionView
                             Margin="0,6"
-                            ItemsSource="{Binding Tutores}">
+                            ItemsSource="{Binding FilteredTutores}">
                                 <CollectionView.ItemsLayout>
                                     <GridItemsLayout 
                                     HorizontalItemSpacing="0"

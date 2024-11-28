@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -12,7 +13,7 @@ using VetApp.Views;
 
 namespace VetApp.ViewModel
 {
-    public class HomePageViewModel : BaseViewModel
+    public class HomePageViewModel : ObservableObject
     {
         const int RefreshDuration = 2;
         private bool isRefreshing;
@@ -28,6 +29,26 @@ namespace VetApp.ViewModel
         {
             get => _IsLoaded;
             set => SetProperty(ref _IsLoaded, value);
+        }
+
+        private string searchQuery;
+        public string SearchQuery
+        {
+            get => searchQuery;
+            set
+            {
+                if (SetProperty(ref searchQuery, value))
+                {
+                    FilterTutores();
+                }
+            }
+        }
+
+        private ObservableCollection<Tutor> filteredTutores;
+        public ObservableCollection<Tutor> FilteredTutores
+        {
+            get => filteredTutores;
+            set => SetProperty(ref filteredTutores, value);
         }
 
         private readonly TutorRepositorio tutorRepositorio = new TutorRepositorio();
@@ -64,7 +85,6 @@ namespace VetApp.ViewModel
 
         private async Task GetRegisterAsync()
         {
-
             try
             {
                 Tutores.Clear();
@@ -82,6 +102,9 @@ namespace VetApp.ViewModel
                         });
                     }
                 }
+
+                // Atualiza a lista filtrada
+                FilteredTutores = new ObservableCollection<Tutor>(Tutores);
             }
             catch (Exception ex)
             {
@@ -157,6 +180,20 @@ namespace VetApp.ViewModel
                 {
                     await Application.Current.MainPage.DisplayAlert("Alerta", "DDD nulo", "OK");
                 }
+            }
+        }
+
+        private void FilterTutores()
+        {
+            if (string.IsNullOrWhiteSpace(SearchQuery))
+            {
+                FilteredTutores = new ObservableCollection<Tutor>(Tutores);
+            }
+            else
+            {
+                var query = SearchQuery.ToLower();
+                var filtered = Tutores.Where(t => t.NomeTutor.ToLower().Contains(query)).ToList();
+                FilteredTutores = new ObservableCollection<Tutor>(filtered);
             }
         }
     }

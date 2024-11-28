@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VetApp.Models.ModelServicos
 {
-    record class Lab
+    public record class Lab
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

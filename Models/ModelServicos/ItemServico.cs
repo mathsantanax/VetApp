@@ -8,15 +8,18 @@ using System.Threading.Tasks;
 
 namespace VetApp.Models.ModelServicos
 {
-    public record class Produto
+    public record ItemServico
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-
-        [ForeignKey(nameof(IdLab))]
-        public int IdLab { get; set; }
-        public string NomePruduto { get; set; } = default!;
+        public int Quantidade { get; set; }
         public decimal Preco { get; set; }
+        public decimal Total { get; set; }
 
+        [ForeignKey(nameof(IdServico))]
+        public int IdServico { get; set; }
+
+        [ForeignKey(nameof(IdAtendimento))]
+        public int IdAtendimento { get; set; }
     }
 }
